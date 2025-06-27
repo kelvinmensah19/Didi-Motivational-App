@@ -1,0 +1,176 @@
+/* General Reset and Fonts */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(135deg, #fce4ec, #e0f7fa);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #d81b60;
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px #fff;
+}
+
+/* Card Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 10px;
+}
+
+/* Card Container */
+.card {
+  perspective: 1000px;
+  animation: fadeIn 0.8s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Card Inner and Flip */
+.card-inner {
+  position: relative;
+  width: 100%;
+  padding-top: 150%; /* Taller cards */
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  cursor: pointer;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg) scale(1.03);
+}
+
+/* Card Faces */
+.card-front,
+.card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  font-size: 1.25rem;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.card-front {
+  background: #fffafc;
+  color: #ec407a;
+  font-weight: 700;
+  position: relative;
+  word-break: break-word;
+}
+
+.card-front::before {
+  content: "💖";
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 1.2rem;
+}
+
+.card-back {
+  background: #f0ffff;
+  transform: rotateY(180deg);
+  color: #00796b;
+}
+
+/* Audio Player */
+audio {
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Splash Screen */
+#splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, #fce4ec, #e0f7fa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeOut 2.5s ease 2.5s forwards;
+}
+
+#splash img {
+  width: 150px;
+  height: 150px;
+  animation: popIn 1.5s ease;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .card-inner {
+    padding-top: 160%; /* Even taller on smaller screens */
+  }
+
+  .card-front,
+  .card-back {
+    font-size: 1.05rem;
+    padding: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-inner {
+    padding-top: 170%;
+  }
+
+  .card-front,
+  .card-back {
+    font-size: 1rem;
+    padding: 18px;
+  }
+}
